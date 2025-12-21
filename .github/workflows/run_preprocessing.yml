@@ -1,0 +1,35 @@
+name: Auto Preprocessing Data
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  run-automate-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install pandas scikit-learn
+
+      - name: Execute Preprocessing Script
+        run: |
+          # Berpindah ke folder preprocessing lalu menjalankan skrip
+          cd preprocessing
+          python automate_Kadek-Gary-Faldi.py
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Automated: Update cleaned dataset"
+          file_pattern: 'preprocessing/Airline Passenger Satisfaction_Cleaned/*.csv'
