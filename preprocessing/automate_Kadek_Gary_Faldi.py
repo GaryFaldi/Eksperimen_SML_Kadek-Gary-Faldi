@@ -3,7 +3,6 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 import os
 
 def run_preprocessing(input_path, output_path):
-    # 1. Load Data
     if not os.path.exists(input_path):
         print(f"Error: File {input_path} tidak ditemukan.")
         return
@@ -11,7 +10,6 @@ def run_preprocessing(input_path, output_path):
     df = pd.read_csv(input_path)
     print(f"Memproses: {input_path}...")
 
-    # 2. Cleaning
     cols_to_drop = ['Unnamed: 0', 'id']
     df = df.drop([c for c in cols_to_drop if c in df.columns], axis=1)
     
@@ -19,14 +17,12 @@ def run_preprocessing(input_path, output_path):
         median_val = df['Arrival Delay in Minutes'].median()
         df['Arrival Delay in Minutes'] = df['Arrival Delay in Minutes'].fillna(median_val)
     
-    # 3. Encoding Data Kategorikal
     le = LabelEncoder()
     cat_cols = ['Gender', 'Customer Type', 'Type of Travel', 'Class', 'satisfaction']
     for col in cat_cols:
         if col in df.columns:
             df[col] = le.fit_transform(df[col])
 
-    # 4. Scaling (Standardization)
     scaler = StandardScaler()
     
     num_cols = [
@@ -41,7 +37,6 @@ def run_preprocessing(input_path, output_path):
     existing_num_cols = [c for c in num_cols if c in df.columns]
     df[existing_num_cols] = scaler.fit_transform(df[existing_num_cols])
 
-    # 5. Save Result
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     df.to_csv(output_path, index=False)
     print(f"Berhasil! Data bersih disimpan di: {output_path}")
