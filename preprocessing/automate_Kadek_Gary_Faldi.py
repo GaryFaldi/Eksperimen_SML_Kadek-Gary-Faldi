@@ -40,8 +40,9 @@ def run_preprocessing(input_path, output_path):
 
 if __name__ == "__main__":
     files = ["train.csv", "test.csv"]
-    base_input_dir = "Airline Passenger Satisfaction"
-    base_output_dir = "preprocessing/Airline Passenger Satisfaction_Cleaned"
+    base_input_dir = "../Airline Passenger Satisfaction"
+    base_output_dir = "Airline Passenger Satisfaction_Cleaned"
+
 
     missing_files = []
 
