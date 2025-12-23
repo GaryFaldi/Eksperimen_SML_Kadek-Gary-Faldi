@@ -28,7 +28,7 @@ jobs:
           python automate_Kadek_Gary_Faldi.py
 
       - name: Commit and Push Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Automated: Update cleaned dataset"
-          file_pattern: 'preprocessing/Airline Passenger Satisfaction_Cleaned/*.csv'
+          file_pattern: preprocessing/**
